@@ -1,0 +1,9 @@
+{
+  "name": "ask-later",
+  "version": "0.1.2",
+  "description": "Ask now, get the answer later. Shelves the agent's questions in PENDING.md, injects the human's answers from INBOX.md on the next tool call, and blocks the stop (twice by default) while unread lines remain. For Claude Code; unofficial.",
+  "author": { "name": "metamol0627" },
+  "license": "MIT",
+  "keywords": ["hooks", "unattended", "human-in-the-loop", "inbox", "pending", "async"],
+  "hooks": "./hooks/hooks.json"
+}

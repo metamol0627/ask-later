@@ -1,0 +1,45 @@
+{
+  "_comment": [
+    "例。環境ごとに書き換える（そのまま使わない）。permissions の allow / deny / ask は著者の環境の値で、パスもコマンドも自分のものに直すこと。",
+    "許可の設計方針。allow は広く、deny を唯一の防壁として厳しく保つ。",
+    "  allow  作業ディレクトリ配下のファイル操作は原則すべて／読み取り専用コマンド／開発用コマンド",
+    "  deny   凍結ファイルの編集／別プロジェクトへの書き込み／git の破壊的サブコマンド／リポジトリの公開化／取り返しのつかないスクリプト",
+    "deny のパターンは前後にワイルドカードを置き、コマンドの書き方の揺れ（git -C . reset --hard）でも捕まるようにする。",
+    "deny を緩めるときは、それが唯一の防壁であることを踏まえること。",
+    "hooks の 5 つは非同期キュー（ask-later。npx ask-later init が書くものと同じ exec 形）。SubagentStop は台帳（第 5 章）——スクリプト tools/agent_ledger.mjs は同梱していない。環境ごとに書く。async にして本体を待たせない。",
+    "ask の Read(_archive/**) は「過去の監査履歴を監査役に読ませない」ための著者の例。無ければ消す。"
+  ],
+  "permissions": {
+    "defaultMode": "default",
+    "allow": ["Read", "Glob", "Grep", "Edit(**)", "Write(**)", "Skill", "Agent", "WebSearch", "WebFetch", "Bash", "PowerShell"],
+    "deny": [
+      "Edit(CHARTER.md)",
+      "Write(CHARTER.md)",
+      "Edit(path/to/frozen/PREREG.md)",
+      "Write(path/to/frozen/PREREG.md)",
+      "Bash(*git*push*--force*)",
+      "Bash(*git*push*-f*)",
+      "Bash(*git*reset*--hard*)",
+      "Bash(*git*clean*-f*)",
+      "Bash(*git*branch*-D*)",
+      "Bash(*git*checkout*--*)",
+      "Bash(*git*restore*)",
+      "Bash(*git*filter-branch*)",
+      "Bash(*git*reflog*delete*)",
+      "Bash(*git*rebase*)",
+      "Bash(*repo*edit*--visibility*)",
+      "Bash(*gh repo create*--public*)",
+      "Bash(*rm -rf /*)",
+      "Bash(*rm -rf ~*)"
+    ],
+    "ask": ["Read(_archive/**)"]
+  },
+  "hooks": {
+    "SessionStart": [{ "hooks": [{ "type": "command", "command": "node", "args": ["${CLAUDE_PROJECT_DIR}/.claude/ask-later/hook.mjs", "SessionStart"], "timeout": 20 }] }],
+    "UserPromptSubmit": [{ "hooks": [{ "type": "command", "command": "node", "args": ["${CLAUDE_PROJECT_DIR}/.claude/ask-later/hook.mjs", "UserPromptSubmit"], "timeout": 15 }] }],
+    "PostToolUse": [{ "hooks": [{ "type": "command", "command": "node", "args": ["${CLAUDE_PROJECT_DIR}/.claude/ask-later/hook.mjs", "PostToolUse"], "timeout": 15 }] }],
+    "Stop": [{ "hooks": [{ "type": "command", "command": "node", "args": ["${CLAUDE_PROJECT_DIR}/.claude/ask-later/hook.mjs", "Stop"], "timeout": 20 }] }],
+    "SessionEnd": [{ "hooks": [{ "type": "command", "command": "node", "args": ["${CLAUDE_PROJECT_DIR}/.claude/ask-later/hook.mjs", "SessionEnd"], "timeout": 20 }] }],
+    "SubagentStop": [{ "hooks": [{ "type": "command", "command": "node", "args": ["${CLAUDE_PROJECT_DIR}/tools/agent_ledger.mjs"], "timeout": 60, "async": true }] }]
+  }
+}

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>無人運転の設計書（無料版）</title>
+<style>
+:root{--paper:#fcfcfa;--ink:#16181d;--soft:#5c6068;--rule:#dcdcd6;--blue:#a4c8e1;--reg:#c8102e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic Medium",system-ui,sans-serif;font-size:16px;line-height:1.9;font-feature-settings:"palt" 1}
+main{max-width:44rem;margin:0 auto;padding:3rem 1.25rem 6rem}
+h1{font-size:1.9rem;line-height:1.35;margin:0 0 .5rem}
+h2{font-size:1.25rem;margin:2.5rem 0 .8rem;padding-top:1.2rem;border-top:1px solid var(--rule)}
+h3{font-size:1.05rem;margin:1.8rem 0 .5rem}
+p{margin:0 0 1rem}
+pre{background:var(--ink);color:var(--paper);padding:.9rem 1.1rem;border-radius:2px;overflow-x:auto;font-size:.86rem;line-height:1.6}
+code{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;font-size:.92em}
+p code,li code,td code{background:#eeeee9;padding:.05em .35em;border-radius:2px}
+blockquote{margin:0 0 1rem;padding:.2rem 1rem;border-left:3px solid var(--blue);color:var(--soft)}
+table{border-collapse:collapse;width:100%;font-size:.92rem;margin:0 0 1.2rem}
+th,td{text-align:left;vertical-align:top;padding:.45rem .5rem;border-bottom:1px solid var(--rule)}
+th{color:var(--soft);font-weight:700}
+ul,ol{margin:0 0 1rem;padding-left:1.4rem}
+li{margin-bottom:.35rem}
+hr{border:0;border-top:1px solid var(--rule);margin:2rem 0}
+a{color:var(--ink)}
+nav.toc{font-size:.92rem;margin:0 0 2rem;padding:1rem 1.2rem;border:1px solid var(--rule)}
+nav.toc ol{margin:0;padding-left:1.2rem}
+nav.toc ol ol{padding-left:1rem}
+.meta{color:var(--soft);font-size:.9rem;margin:0 0 2rem}
+footer{border-top:1px solid var(--rule);margin-top:3rem;padding-top:1rem;color:var(--soft);font-size:.85rem}
+</style>
+</head>
+<body>
+<main>
+
+<h1 id="無人運転の設計書-無料版-第-1-章と最小テンプレ">無人運転の設計書（無料版）— 第 1 章と最小テンプレ</h1>
+<p><code>ask-later</code>（MIT・無料の道具）に同梱している、有償の設計書「無人運転の設計書 — AI コーディングエージェントを止めずに回す規律（Claude Code での実装例つき）」の無料部分です。</p>
+<h2 id="入っているもの">入っているもの</h2>
+<table><thead><tr><th>ファイル</th><th>内容</th></tr></thead><tbody><tr><td><code>01-why-it-stops.md</code> / <code>.html</code></td><td>第 1 章「なぜ止まるか——承認待ちの構造」。判断の留保と作業の停止は別のもの。承認待ちの 3 つの型。依存範囲を都度の判断に委ねない。棚上げが作る新しい失敗</td></tr><tr><td><code>templates/PENDING.md</code></td><td>依頼の台帳の雛形（<code>npx ask-later init</code> が置くものと同じ）</td></tr><tr><td><code>templates/INBOX.md</code></td><td>人からの 1 行の雛形（同上）</td></tr><tr><td><code>templates/CLAUDE.snippet.md</code></td><td>CLAUDE.md に貼る規律の断片（<code>npx ask-later snippet</code> と同じ）</td></tr><tr><td><code>templates/settings.hooks.json</code></td><td><code>.claude/settings.json</code> の断片。非同期キューの 5 つのフック・台帳のフック・権限の allow / deny の骨子</td></tr></tbody></table>
+<h2 id="有償版に入っているもの-1-480-markdown-html-の-zip">有償版に入っているもの（¥1,480・Markdown＋HTML の ZIP）</h2>
+<ul><li>第 2 章 棚上げキュー——PENDING / INBOX / 番兵 / フック。なぜその形か。依存する作業と続行する作業を両方書く書式</li><li>第 3 章 無人実行の 4 つのブレーキ——回数・費用・無進捗・不可逆操作の前の昇格。どこに置くか（外部プロセス／フック／文書）</li><li>第 4 章 独立セッションの監査——判断監査と検証監査の型。渡すもの／渡さないもの。結果を受け取った直後にファイルへ書く理由</li><li>第 5 章 記録は機械が書く——SubagentStop → CSV の台帳。モデル・トークン・概算コスト</li><li>第 6 章 失敗の記録（中核）——60 回の確認で無人実行が壊れた／監査結果が会話にしか無くて消えた／フック出力の文字化け／期限切れ項目の自動取り下げ／「念のため確認します」問題／dry-run 通過＝配管が動く、ほか 14 件</li><li>第 7 章 テンプレ一式——CHARTER の骨子・監査役の定義（agents/*.md 3 本）・STATUS / NEXT の骨子（無料版の 4 ファイルを含む）</li></ul>
+<p>入手方法は道具の README（「有償版」の節）にあります。</p>
+<p>Claude および Claude Code は Anthropic, PBC の商標です。本書と道具は非公式で、Anthropic とは無関係です。</p>
+<h2 id="files">収録ファイル</h2>
+<ol>
+<li><a href="01-why-it-stops.html">第 1 章 なぜ止まるか——承認待ちの構造</a>（<a href="01-why-it-stops.md">Markdown</a>）</li>
+</ol>
+<footer>無人運転の設計書 — ask-later 同梱。© 2026 metamol0627。無断転載を禁じます。Claude および Claude Code は Anthropic, PBC の商標です。本書と道具は非公式で、Anthropic とは無関係です。</footer>
+</main>
+</body>
+</html>

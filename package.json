@@ -1,0 +1,57 @@
+{
+  "name": "ask-later",
+  "version": "0.1.2",
+  "homepage": "https://lab-cws.pages.dev/ask-later/",
+  "_homepageNote": "npm のパッケージページの右側に出る唯一のリンク欄。公開リポジトリは未作成（404 を出さないので repository/bugs は入れない）。0.1.0 の README には販売ページの URL が 1 箇所も無く、npm から購入ページへ渡る橋が存在しなかった（判断監査 J-SHIP-BOTTLENECK 指摘1・2026-09-30）。",
+  "description": "Run Claude Code unattended without stopping at questions: the agent shelves questions in PENDING.md and keeps working, your one-line answers in INBOX.md are injected on the next tool call, and the stop is blocked (twice by default) while lines are unread. — Claude Code を無人で回すと「確認していいですか」で止まる——その質問を後回しにして作業を続ける。Claude Code 用の非同期の質問キュー（非公式）。",
+  "keywords": [
+    "claude-code",
+    "hooks",
+    "unattended",
+    "human-in-the-loop",
+    "async",
+    "inbox",
+    "pending",
+    "queue",
+    "coding-agent",
+    "無人",
+    "非同期"
+  ],
+  "license": "MIT",
+  "author": "metamol0627",
+  "type": "module",
+  "bin": {
+    "ask-later": "bin/ask-later.mjs"
+  },
+  "main": "lib/queue.mjs",
+  "exports": {
+    ".": "./lib/queue.mjs",
+    "./pending": "./lib/pending.mjs",
+    "./inbox": "./lib/inbox.mjs",
+    "./hook": "./lib/hook.mjs",
+    "./install": "./lib/install.mjs"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "templates/",
+    "hooks/",
+    ".claude-plugin/",
+    "README.md",
+    "README.en.md",
+    "docs/field-log.md",
+    "docs/manual-free/",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "fieldlog": "node scripts/field_log.mjs",
+    "build:manual": "node scripts/build_manual.mjs",
+    "check:claims": "node scripts/check_claims.mjs",
+    "check:sale": "node ../../scripts/check_sale_status.mjs ask-later"
+  },
+  "dependencies": {}
+}

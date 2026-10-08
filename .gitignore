@@ -1,0 +1,10 @@
+# 実データ（この lab の PENDING_USER.md / INBOX.md のコピー。個人情報を含みうるのでコミットしない。
+# scripts/field_log.mjs が写して docs/field-log.md を書く）
+tests/fixtures/real/
+# テストが作る一時ディレクトリ
+tests/tmp/
+# 有償の設計書のビルド成果物（scripts/build_manual.mjs で再生成できる）
+dist/
+node_modules/
+package-lock.json
+.ask-later/
